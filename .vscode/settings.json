@@ -1,0 +1,46 @@
+{
+  "workbench.iconTheme": "vscode-icons",
+  "editor.formatOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "eslint.options": {
+    "plugins": [
+      "html"
+    ],
+    "extensions": [
+      ".js",
+      ".vue"
+    ]
+  },
+  "eslint.autoFixOnSave": true,
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": [
+      "css",
+      "html",
+      "less"
+    ]
+  },
+  "tslint.autoFixOnSave": true,
+  "window.zoomLevel": 1,
+  "extensions.ignoreRecommendations": true,
+  "editor.fontSize": 14,
+  "editor.tabSize": 2,
+  "files.associations": {
+    "*.wpy": "vue"
+  },
+  "vetur.format.defaultFormatter.js": "none",
+  "vetur.format.defaultFormatter.ts": "none",
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  "workbench.statusBar.feedback.visible": false
+}
