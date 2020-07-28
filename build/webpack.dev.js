@@ -5,14 +5,14 @@ const tsImportPluginFactory = require('ts-import-plugin')
 const autoprefixer = require('autoprefixer')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const env = process.env.REACT_APP_ENV
 const isProd = process.env.REACT_APP_ENV === 'prod'
 
 base.mode = 'development'
 base.output = {
   filename: '[name].[hash:8].js',
-  path: config.appBuild
+  path: config.appBuild,
 }
 base.module = {
   rules: [
@@ -49,13 +49,13 @@ base.module = {
               options: {
                 transpileOnly: true,
                 getCustomTransformers: () => ({
-                  before: [tsImportPluginFactory(
-                    {
+                  before: [
+                    tsImportPluginFactory({
                       libraryDirectory: 'es',
                       libraryName: 'antd',
                       style: true,
-                    }
-                  )]
+                    }),
+                  ],
                 }),
                 configFile: config.appTsProdConfig,
               },
@@ -65,11 +65,13 @@ base.module = {
         {
           test: /\.css$/,
           use: [
-            isProd ? MiniCssExtractPlugin.loader : require.resolve('style-loader'),
+            isProd
+              ? MiniCssExtractPlugin.loader
+              : require.resolve('style-loader'),
             {
               loader: require.resolve('css-loader'),
               options: {
-                url: true
+                url: true,
               },
             },
             {
@@ -80,28 +82,22 @@ base.module = {
                 ident: 'postcss',
                 plugins: () => [
                   require('postcss-flexbugs-fixes'),
-                  autoprefixer({
-                    browsers: [
-                      '>1%',
-                      'last 4 versions',
-                      'Firefox ESR',
-                      'not ie < 9', // React doesn't support IE8 anyway
-                    ],
-                    flexbox: 'no-2009',
-                  }),
+                  autoprefixer(),
                 ],
               },
-            }
-          ]
+            },
+          ],
         },
         {
           test: /\.less$/,
           use: [
-            isProd ? MiniCssExtractPlugin.loader : require.resolve('style-loader'),
+            isProd
+              ? MiniCssExtractPlugin.loader
+              : require.resolve('style-loader'),
             {
               loader: require.resolve('css-loader'),
               options: {
-                url: true
+                url: true,
               },
             },
             {
@@ -109,17 +105,19 @@ base.module = {
               options: {
                 modifyVars: {
                   'primary-color': 'deeppink',
-                  'link-color': 'deeppink'
+                  'link-color': 'deeppink',
                 },
                 javascriptEnabled: true,
-              }
-            }
+              },
+            },
           ],
         },
         {
           test: /\.s[ac]ss$/,
           use: [
-            isProd ? MiniCssExtractPlugin.loader : require.resolve('style-loader'),
+            isProd
+              ? MiniCssExtractPlugin.loader
+              : require.resolve('style-loader'),
             {
               loader: require.resolve('typings-for-css-modules-loader'),
               options: {
@@ -127,7 +125,7 @@ base.module = {
                 namedExport: true,
                 camelCase: true,
                 minimize: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
+                localIdentName: '[name]__[local]___[hash:base64:5]',
               },
             },
             {
@@ -136,34 +134,26 @@ base.module = {
                 ident: 'postcss',
                 plugins: () => [
                   require('postcss-flexbugs-fixes'),
-                  autoprefixer({
-                    browsers: [
-                      '>1%',
-                      'last 4 versions',
-                      'Firefox ESR',
-                      'not ie < 9', // React doesn't support IE8 anyway
-                    ],
-                    flexbox: 'no-2009',
-                  }),
+                  autoprefixer(),
                 ],
               },
             },
             {
-              loader: require.resolve('sass-loader')
-            }
+              loader: require.resolve('sass-loader'),
+            },
           ],
         },
         {
           loader: require.resolve('file-loader'),
-          exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/]
-        }
-      ]
-    }
-  ]
+          exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/],
+        },
+      ],
+    },
+  ],
 }
 base.plugins.push(
   new webpack.DefinePlugin({
-    'process.env.REACT_APP_ENV': JSON.stringify(env)
+    'process.env.REACT_APP_ENV': JSON.stringify(env),
   }),
   new HtmlWebpackPlugin({
     inject: true,
@@ -175,14 +165,11 @@ base.plugins.push(
       removeRedundantAttributes: true,
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true,
-      useShortDoctype: true
-    }
-  })
+      useShortDoctype: true,
+    },
+  }),
 )
 if (isProd) {
-  base.plugins.push(
-    new MiniCssExtractPlugin(),
-    new OptimizeCSSAssetsPlugin({})
-  )
+  base.plugins.push(new MiniCssExtractPlugin(), new OptimizeCSSAssetsPlugin({}))
 }
 module.exports = base

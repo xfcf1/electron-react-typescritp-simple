@@ -18,10 +18,11 @@ if (isHot) {
   trayIcon = path.join(__dirname, './icon.png')
 }
 
+let tray: Electron.Tray
 // 系统托盘
 function createTray(mainWindow: Electron.BrowserWindow) {
   const productName = `${pkg.name}-${pkg.version}${versionName}`
-  const tray: Electron.Tray = new Tray(nativeImage.createFromPath(trayIcon))
+  tray = new Tray(nativeImage.createFromPath(trayIcon))
   const contextMenu = Menu.buildFromTemplate([
     { label: productName, type: 'normal', enabled: false },
     {
@@ -29,7 +30,7 @@ function createTray(mainWindow: Electron.BrowserWindow) {
       type: 'normal',
       click: () => {
         autoUpdater.checkForUpdates()
-      }
+      },
     },
     { type: 'separator' },
     {
@@ -38,14 +39,14 @@ function createTray(mainWindow: Electron.BrowserWindow) {
       click: () => {
         mainWindow.restore()
         mainWindow.show()
-      }
+      },
     },
     {
       label: '退出',
       type: 'normal',
       click: () => {
         app.quit()
-      }
+      },
     },
   ])
   tray.setToolTip(productName)

@@ -2,28 +2,18 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/web/*"
-      ],
-      "root/*": [
-        "./src/*"
-      ],
-      "elec/*": [
-        "./src/electron/*"
-      ]
+      "@/*": ["./src/web/*"],
+      "root/*": ["./src/*"],
+      "elec/*": ["./src/electron/*"]
     },
     "outDir": "dist",
     "module": "esnext",
     "target": "es5",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src/web",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -33,11 +23,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
-  "exclude": [
-    "node_modules",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest"
-  ]
+  "exclude": ["node_modules", "scripts", "acceptance-tests", "webpack", "jest"],
+  "include": ["build", "public", "src"]
 }

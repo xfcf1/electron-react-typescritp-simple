@@ -61,34 +61,43 @@ function updateHandle() {
   }
 
   autoUpdater.setFeedURL(Urls.clientUpdate)
-  autoUpdater.on('error', (error) => {
+  autoUpdater.on('error', error => {
     sendUpdateMessage({ error, message: message.error })
   })
   autoUpdater.on('checking-for-update', () => {
     sendUpdateMessage(message.checking)
   })
-  autoUpdater.on('update-available', (info) => {
+  autoUpdater.on('update-available', info => {
     sendUpdateMessage(message.updateAva)
   })
-  autoUpdater.on('update-not-available', (info) => {
+  autoUpdater.on('update-not-available', info => {
     sendUpdateMessage({ message: message.updateNotAva })
   })
 
   // 更新下载进度事件
-  autoUpdater.on('download-progress', (progressObj) => {
+  autoUpdater.on('download-progress', progressObj => {
     mainWindow.webContents.send('downloadProgress', progressObj)
   })
-  autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) => {
+  autoUpdater.on(
+    'update-downloaded',
+    (
+      event,
+      releaseNotes,
+      releaseName,
+      releaseDate,
+      updateUrl,
+      quitAndUpdate,
+    ) => {
+      ipcMain.on('isUpdateNow', (e: Electron.Event, arg: any) => {
+        console.log(e, arg)
+        console.log('开始更新')
+        // some code here to handle event
+        autoUpdater.quitAndInstall()
+      })
 
-    ipcMain.on('isUpdateNow', (e: Electron.Event, arg: any) => {
-      console.log(e, arg)
-      console.log('开始更新')
-      // some code here to handle event
-      autoUpdater.quitAndInstall()
-    })
-
-    mainWindow.webContents.send('isUpdateNow')
-  })
+      mainWindow.webContents.send('isUpdateNow')
+    },
+  )
 
   ipcMain.on('checkForUpdate', () => {
     // 执行自动更新检查

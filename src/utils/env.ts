@@ -1,10 +1,4 @@
-import {
-  ENV_DEV,
-  ENV_TEST,
-  ENV_PROD,
-  MAC_CODE,
-  WIN_CODE
-} from '../constants'
+import { ENV_DEV, ENV_TEST, ENV_PROD, MAC_CODE, WIN_CODE } from '../constants'
 
 export const APP_ENV = process.env.REACT_APP_ENV
 export const isDev = APP_ENV === ENV_DEV

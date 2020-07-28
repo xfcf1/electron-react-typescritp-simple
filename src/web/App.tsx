@@ -41,12 +41,12 @@ class App extends React.Component {
   }
   public render() {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className='App-intro'>
+        <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> 1and save to reload.
         </p>
         <br />
@@ -54,18 +54,10 @@ class App extends React.Component {
         <br />
         <br />
         <div>
-          <button
-            onClick={() => this.hide()}
-          >隐藏</button>
-          <button
-            onClick={() => this.min()}
-          >缩小</button>
-          <button
-            onClick={() => this.full()}
-          >全屏</button>
-          <button
-            onClick={() => this.update()}
-          >检查更新</button>
+          <button onClick={() => this.hide()}>隐藏</button>
+          <button onClick={() => this.min()}>缩小</button>
+          <button onClick={() => this.full()}>全屏</button>
+          <button onClick={() => this.update()}>检查更新</button>
         </div>
       </div>
     )

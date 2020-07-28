@@ -16,16 +16,21 @@ class MainWindow extends BaseWindow {
   public init() {
     if (isHot) {
       // 添加react devtool
-      BrowserWindow.addDevToolsExtension(
-        path.join(os.homedir(), '/Library/Application\ Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.6.0_0')
-      )
+      // BrowserWindow.addDevToolsExtension(
+      //   path.join(
+      //     os.homedir(),
+      //     '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.6.0_0',
+      //   ),
+      // )
     }
     this.win = new BrowserWindow(MianWinConfig)
     super.init(this.win)
     this.bindWindowEvent()
     if (!isHot) {
       // 打包环境加载本地网页
-      this.win.loadURL(`file:///${path.join(__dirname, '..', 'dist', 'index.html')}`)
+      this.win.loadURL(
+        `file:///${path.join(__dirname, '..', 'dist', 'index.html')}`,
+      )
     } else {
       // 开发环境加载本地server
       this.win.loadURL(Urls.localServer)

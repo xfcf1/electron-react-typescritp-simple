@@ -78,11 +78,15 @@ export default class CreateWindow {
   }
 
   public show() {
-    if (isMac) { app.show() }
+    if (isMac) {
+      app.show()
+    }
 
     app.focus()
 
-    if (this.window.isMinimized()) { this.window.restore() }
+    if (this.window.isMinimized()) {
+      this.window.restore()
+    }
 
     this.window.show()
   }
@@ -95,7 +99,9 @@ export default class CreateWindow {
   public destroy() {
     log.info(`${this.name}: destroy`)
 
-    if (this.isClosed || this.window.isDestroyed()) { return }
+    if (this.isClosed || this.window.isDestroyed()) {
+      return
+    }
 
     this.window.destroy()
 
@@ -103,7 +109,9 @@ export default class CreateWindow {
   }
 
   public close() {
-    if (this.isClosed) { return }
+    if (this.isClosed) {
+      return
+    }
 
     this.window.close()
     this.isClosed = true
@@ -113,34 +121,39 @@ export default class CreateWindow {
     this.window.webContents.on('crashed', () => {
       log.info(`crashed: ${this.name}`)
 
-      dialog.showMessageBox({
-        type: 'info',
-        title: '崩溃',
-        message: '程序崩溃',
-        buttons: ['恢复', '退出']
-      }, (index) => {
-        if (index === 0) {
-          this.window.reload()
-        } else {
-          app.quit()
-        }
-      })
+      dialog.showMessageBox(
+        {
+          type: 'info',
+          title: '崩溃',
+          message: '程序崩溃',
+          buttons: ['恢复', '退出'],
+        },
+        index => {
+          if (index === 0) {
+            this.window.reload()
+          } else {
+            app.quit()
+          }
+        },
+      )
     })
 
     this.window.on('unresponsive', () => {
-
-      dialog.showMessageBox({
-        type: 'info',
-        title: '未响应',
-        message: '程序未响应',
-        buttons: ['恢复', '退出']
-      }, (index) => {
-        if (index === 0) {
-          this.window.reload()
-        } else {
-          app.quit()
-        }
-      })
+      dialog.showMessageBox(
+        {
+          type: 'info',
+          title: '未响应',
+          message: '程序未响应',
+          buttons: ['恢复', '退出'],
+        },
+        index => {
+          if (index === 0) {
+            this.window.reload()
+          } else {
+            app.quit()
+          }
+        },
+      )
     })
   }
 
@@ -151,17 +164,22 @@ export default class CreateWindow {
 
   public addInspect() {
     log.info(`${this.name}: add inspect`)
-    if (isProd) { return }
+    if (isProd) {
+      return
+    }
 
-    this.window.webContents.on('context-menu', (e: any, { x, y }: { x: number, y: number }) => {
-      Menu.buildFromTemplate([
-        {
-          label: '审查元素',
-          click: () => {
-            this.window.inspectElement(x, y)
+    this.window.webContents.on(
+      'context-menu',
+      (e: any, { x, y }: { x: number; y: number }) => {
+        Menu.buildFromTemplate([
+          {
+            label: '审查元素',
+            click: () => {
+              this.window.inspectElement(x, y)
+            },
           },
-        },
-      ]).popup(this.window)
-    })
+        ]).popup(this.window)
+      },
+    )
   }
 }

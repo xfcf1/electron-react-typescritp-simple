@@ -9,7 +9,7 @@ export interface IUrls {
 
 const Urls: IUrls = {
   clientUpdate: '',
-  localServer: ''
+  localServer: '',
 }
 const updateBaseUrl = pkg.build.publish[0].url
 

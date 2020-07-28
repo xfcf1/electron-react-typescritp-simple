@@ -9,7 +9,9 @@ if (isDev) {
   versionName = '-Test'
 }
 
-export default function menuConfig(main: Electron.BrowserWindow): Electron.MenuItemConstructorOptions[] {
+export default function menuConfig(
+  main: Electron.BrowserWindow,
+): Electron.MenuItemConstructorOptions[] {
   return [
     {
       label: pkg.name,
@@ -107,21 +109,21 @@ export default function menuConfig(main: Electron.BrowserWindow): Electron.MenuI
       label: '显示',
       submenu: !isProd
         ? [
-          {
-            label: '重新加载',
-            accelerator: 'Command+R',
-            click() {
-              main.webContents.reload()
+            {
+              label: '重新加载',
+              accelerator: 'Command+R',
+              click() {
+                main.webContents.reload()
+              },
             },
-          },
-          {
-            label: '进入全屏幕',
-            accelerator: 'Ctrl+Command+F',
-            click() {
-              main.setFullScreen(!main.isFullScreen())
+            {
+              label: '进入全屏幕',
+              accelerator: 'Ctrl+Command+F',
+              click() {
+                main.setFullScreen(!main.isFullScreen())
+              },
             },
-          },
-        ]
+          ]
         : [],
     },
     {
@@ -131,9 +133,9 @@ export default function menuConfig(main: Electron.BrowserWindow): Electron.MenuI
           label: '了解更多',
           click() {
             shell.openExternal('https://www.aikucun.com')
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ]
 }
